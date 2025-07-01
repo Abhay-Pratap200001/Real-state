@@ -4,6 +4,8 @@ import dotenv from 'dotenv'
 import userRouter from './routes/user.route.js';
 import authRouter from './routes/auth.route.js'
 dotenv.config()
+const app = express()
+app.use(express.json())
 
 
 //connecting server to database
@@ -17,13 +19,12 @@ mongoose.connect(process.env.MONGODB_URI)
   .catch((err) => {
     console.error("MongoDB connection error:", err);
     
-  });const app = express()
+  });
 
 app.listen(3000, ()=>{
     console.log("runiun");
 })
 
-app.use(express.json())
 app.use('/api/user', userRouter);
 app.use('/api/auth' , authRouter)//signup/api
 
