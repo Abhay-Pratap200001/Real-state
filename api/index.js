@@ -1,8 +1,11 @@
 import express from "express"
 import mongoose from "mongoose";
 import dotenv from 'dotenv'
+import userRouter from './routes/user.route.js';
 dotenv.config()
 
+
+//connecting server to database
 mongoose.connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("MongoDB connected");
@@ -17,7 +20,6 @@ mongoose.connect(process.env.MONGODB_URI)
 
 app.listen(3000, ()=>{
     console.log("runiun");
-    
 })
 
-//
+app.use('/api/user', userRouter);
