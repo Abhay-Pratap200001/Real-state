@@ -2,7 +2,6 @@ import User from "../models/user.model.js"
 import bcryptjs from "bcryptjs"
 import { errorHandler } from "../utils/error.js";
 
-
 export const signup = async(req,res,next) =>{//Creating user signup controller
 const {username, email, password} = req.body;
 const hashedPassword = bcryptjs.hashSync(password, 10);// encrypting the password
