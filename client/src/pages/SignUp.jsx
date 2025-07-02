@@ -3,9 +3,9 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
-  const [formData, setFormData] = useState({}); //state for store form data
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
+  const [formData, setFormData] = useState({}); //state for store form input field data
+  const [error, setError] = useState(null); // to store frontend error
+  const [loading, setLoading] = useState(false); // manage sign-up button is loading or not loading
   const navigate = useNavigate();
 
 
