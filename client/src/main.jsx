@@ -12,7 +12,7 @@ import { PersistGate } from 'redux-persist/integration/react'// Import PersistGa
 createRoot(document.getElementById('root')).render(
   <Provider store={store}> 
   <PersistGate loading={null} persistor={persistor}>{/* PersistGate ensures that Redux Persist loads saved state before showing the app */}
-    <App />
-    </PersistGate>
+  <App />
+  </PersistGate>
   </Provider>,// wraps your entire app and gives access to the Redux store.
 )
