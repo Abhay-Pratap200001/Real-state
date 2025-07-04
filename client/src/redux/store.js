@@ -1,5 +1,5 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit'  //step 1 make store 
-import  userReducer  from '../user/userSlice';// Import user reducer (authentication-related state
+import  userReducer  from '../user/userSlice';// Import user reducer (authentication-related state)
 import {persistReducer,persistStore} from "redux-persist";// For saving Redux state in localStorage
 import storage from "redux-persist/lib/storage";// Use localStorage as default storage
 
