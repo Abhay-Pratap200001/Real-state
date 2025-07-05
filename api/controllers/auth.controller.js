@@ -27,7 +27,7 @@ export const signin = async (req, res, next) => { //signin function
     const token = jwt.sign({ id: validUser._id }, process.env.JWT_SECRET); // generating jwt token and coverting user id to jwt id
     const { password: pass, ...rest } = validUser._doc;// storing password sapprate and store other field in rest obj 
     res
-      .cookie('access_token', token,// sending cookies to frontend
+      .cookie('access_token', token,// sending cookies to frontend with the name of access_token
        { httpOnly: true })
       .status(200)
       .json(rest);// sending user info to frontend without pass
@@ -45,7 +45,7 @@ export const google = async (req, res, next) => { // google oAuth signin functio
       const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET); // generating jwt token and coverting user id to jwt id
       const { password: pass, ...rest } = user._doc;// storing password sapprate and store other field in rest obj 
       res
-        .cookie('access_token', token,// sending cookies to frontend 
+        .cookie('access_token', token,// sending cookies to frontend with the name of access_token
         { httpOnly: true })
         .status(200)
         .json(rest); // sending user info to frontend without pass
@@ -71,7 +71,7 @@ export const google = async (req, res, next) => { // google oAuth signin functio
       const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET); // generating jwt token and coverting user id to jwt id
       const { password: pass, ...rest } = newUser._doc;// storing password sapprate and store other field in rest obj 
       res
-        .cookie('access_token', token, // sending cookies to frontend 
+        .cookie('access_token', token, // sending cookies to frontend with the name of access_token
          { httpOnly: true }) 
         .status(200)
         .json(rest);// sending user info to frontend without pass
