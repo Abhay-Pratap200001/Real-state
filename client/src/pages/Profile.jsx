@@ -2,7 +2,10 @@ import React from "react";
 import {
   updateUserStart,
   updateUserSuccess,
-  updateUserFailure, //import inbuild state from user/slice
+  updateUserFailure,
+  deleteUserFailure,
+  deleteUserStart,
+  deleteUserSuccess //import inbuild state from user/slice
 } from '../user/userSlice';
 
 import { useDispatch } from 'react-redux';//dispatch used to trigger Redux actions
@@ -12,7 +15,7 @@ import { useRef, useState } from "react";
 export default function Profile() {
   const [formData, setFormData] = useState({})// to manage form fields inputs data
   const fileRef = useRef(null)//find currentUser avatr
-  const { currentUser, loading, error } = useSelector((state) => state.user); //importing current for know the how is current user
+  const { currentUser, loading, error } = useSelector((state) => state.user); //importing currentUser from user.slice for know the how is current user
   const [updateSuccess, setUpdateSuccess] = useState(false)//show update message
   const dispatch = useDispatch();//config dispach
   
@@ -45,6 +48,25 @@ export default function Profile() {
       dispatch(updateUserFailure(error.message));// give error message
     }
   };
+
+  const handleDeleteUser = async () => { // deleting user function
+    try {
+      dispatch(deleteUserStart());
+      const res = await fetch(`/api/user/delete/${currentUser._id}`, {  //sending user to delete
+        method: 'DELETE',// method is delete
+      });
+      const data = await res.json();  //storing resonpsw
+      if (data.success === false) {
+        dispatch(deleteUserFailure(data.message));
+        return; //if data.success fails, show erro
+      }
+      dispatch(deleteUserSuccess(data));  //if passed, dispatch success with data
+    }
+     catch (error) {
+      dispatch(deleteUserFailure(error.message));// if some error then show
+    }
+  };
+
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -88,12 +110,11 @@ export default function Profile() {
       </form>
 
         <div className="flex justify-between mt-5">
-        <span className="text-red-700 cursor-pointer">Delete account</span>
+        <span onClick={handleDeleteUser} className="text-red-700 cursor-pointer">Delete account</span>
         <span className="text-red-700 cursor-pointer">Sign out</span>
       </div>
 
       {/* Definig error */}
-       <p className='text-red-700 mt-5'>{error ? error : ''}</p>{/* if error occur show erro other wise show  nothing */} 
       <p className='text-center text-green-700 mt-5'>
         {updateSuccess ? 'User is updated successfully! ✅' : ''}{/* if sucess show other wise show emplty */}
       </p>
