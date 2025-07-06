@@ -39,3 +39,4 @@ export const updateUser = async (req, res, next) => {  //user updated function
     next(error);// if any error thor it to error middleware
   }
 };
+
