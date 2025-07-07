@@ -25,9 +25,7 @@ mongoose.connect(process.env.MONGODB_URI)
     
   });
 
-app.listen(3000, ()=>{
-    console.log("runiun");
-})
+
 
 app.use('/api/user', userRouter);//update/delete
 app.use('/api/auth' , authRouter)//signup/api/singin/api
