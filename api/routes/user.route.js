@@ -11,4 +11,5 @@ router.delete('/delete/:id',verifyToken, deleteUser); // delete route
 
 
 
-export default router;//4/12
+export default router;
+//4/56

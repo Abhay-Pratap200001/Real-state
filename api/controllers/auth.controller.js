@@ -82,3 +82,12 @@ export const google = async (req, res, next) => { // google oAuth signin functio
   }
 };
 
+
+export const signOut = async (req, res, next) => { // signOut function 
+  try {
+    res.clearCookie('access_token'); // clear cooies which is store in frontend
+    res.status(200).json('User has been logged out!'); // sending response
+  } catch (error) {
+    next(error);
+  }
+};
