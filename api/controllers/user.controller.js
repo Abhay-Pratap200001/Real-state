@@ -1,8 +1,9 @@
 import User from '../models/user.model.js';
 import bcryptjs from 'bcryptjs';
 import { errorHandler } from '../utils/error.js';
+import Listing from '../models/listing.model.js';
 
-export const test = (req,res) =>{
+export const test = (req, res) =>{
     res.json({
         message: "hello"
     })
@@ -52,3 +53,17 @@ export const deleteUser = async (req, res, next) => { // deleting user function
     next(error);// error the pass to next
   }
 };
+
+
+export const getUserListings = async (req, res, next) => { //getting user listing function
+   if (req.user.id === req.params.id) { // if the user listing id and the authenticated user id is same find listing from db
+    try {
+      const listings = await Listing.find({ userRef: req.params.id });
+      res.status(200).json(listings);
+    } catch (error) {
+      next(error);
+    }
+  } else {
+    return next(errorHandler(401, 'You can only view your own listings!'));
+  }
+}

@@ -324,7 +324,7 @@ export default function CreateListing() { // creeate listing component
              <button
               type='button'
               disabled={uploading}
-              onClick={handleImageSubmit}
+              onClick={handleImageSubmit} //image submit button
               className='p-3 text-green-700 border border-green-700 rounded uppercase hover:shadow-lg disabled:opacity-80'>
               {uploading ? 'Uploading...' : 'Upload'}
             </button>
@@ -334,7 +334,7 @@ export default function CreateListing() { // creeate listing component
             {imageUploadError && imageUploadError}
           </p>
 
-          {formData.imageUrls.length > 0 && 
+          {formData.imageUrls.length > 0 &&  // image length has to be greater then 0
             formData.imageUrls.map((url, index) => ( // if img upload map all img 
               <div
                 key={url}
@@ -356,7 +356,7 @@ export default function CreateListing() { // creeate listing component
             ))}
 
           <button disabled={loading || uploading} className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
-                  {loading ? 'Creating...' : 'Create listing'}
+                  {loading ? 'Creating...' : 'Create listing'} 
             </button>
                    {error && <p className='text-red-700 text-sm'>{error}</p>}
         </div>
