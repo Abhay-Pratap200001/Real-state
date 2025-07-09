@@ -18,6 +18,8 @@ export default function Profile() {
   const fileRef = useRef(null)//find currentUser avatr
   const { currentUser, loading, error } = useSelector((state) => state.user); //importing currentUser from user.slice for know the how is current user
   const [updateSuccess, setUpdateSuccess] = useState(false)//show update message
+  const [showListingsError, setShowListingsError] = useState(false);// to track error while handleShowlisting
+  const [userListings, setUserListings] = useState([]);
   const dispatch = useDispatch();//config dispach
   
   const handleChange = (e) => {
@@ -83,6 +85,22 @@ const handleSignOut = async () => {  //signout Functiom
     }
   };
 
+   const handleShowListings = async () => { //showing listing functiom
+    try {
+      setShowListingsError(false); 
+      const res = await fetch(`/api/user/listings/${currentUser._id}`);// sending req to backend with current user
+      const data = await res.json(); //holding response 
+      if (data.success === false) {
+        setShowListingsError(true); // if any problem occur then give error
+        return;
+      }
+      setUserListings(data) // storing response in setuserstata to show data in screen
+
+    } catch (error) {
+        setShowListingsError(true);
+    }
+  }
+
   return (
     <div className="p-3 max-w-lg mx-auto">
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
@@ -140,6 +158,41 @@ const handleSignOut = async () => {  //signout Functiom
       <p className='text-center text-green-700 mt-5'>
         {updateSuccess ? 'User is updated successfully! ✅' : ''}{/* if sucess show other wise show emplty */}
       </p>
+      <button  onClick={handleShowListings} className='text-green-700 w-full'>Show listings</button>
+
+       <p className='text-red-700 mt-5'>
+        {showListingsError ? 'Error showing listings' : ''}
+      </p>
+
+        {userListings && // if userlist is then show this 
+        userListings.length > 0 &&
+        <div className="flex flex-col gap-4">
+          <h1 className='text-center mt-7 text-2xl font-semibold'>Your Listings</h1>
+          {userListings.map((listing) => ( // maping all listing
+            <div key={listing._id} 
+              className='border rounded-lg p-3 flex justify-between items-center gap-4'>
+
+              <Link to={`/listing/${listing._id}`}> 
+                <img
+                  src={listing.imageUrls[0]} // show images according user id
+                  alt='listing cover'
+                  className='h-16 w-16 object-contain'/>
+              </Link>
+
+              <Link
+                className='text-slate-700 font-semibold  hover:underline truncate flex-1'// show name according id
+                to={`/listing/${listing._id}`}> 
+                <p>{listing.name}</p> 
+              </Link> 
+  
+              <div className='flex flex-col item-center'>
+                <button className='text-red-700 uppercase'>Delete</button>
+                <button className='text-green-700 uppercase'>Edit</button>
+              </div>
+            </div>
+          ))}
+        </div>}
+      
     </div>
   );
 }
