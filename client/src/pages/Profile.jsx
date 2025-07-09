@@ -85,6 +85,7 @@ const handleSignOut = async () => {  //signout Functiom
     }
   };
 
+
    const handleShowListings = async () => { //showing listing functiom
     try {
       setShowListingsError(false); 
@@ -100,6 +101,26 @@ const handleSignOut = async () => {  //signout Functiom
         setShowListingsError(true);
     }
   }
+
+
+const handleListingDelete = async (listingId) => { // delete user function
+   try {
+      const res = await fetch(`/api/listing/delete/${listingId}`, { // send request with user id
+        method: 'DELETE',
+      });
+      const data = await res.json();
+      if (data.success === false) {
+        console.log(data.message);
+        return;
+      }
+
+      setUserListings((prev) => prev.filter((listing) => listing._id !== listingId) // updating the userListing by listing which  deleted
+      );
+    } catch (error) {
+      console.log(error.message);
+    }
+  };
+
 
   return (
     <div className="p-3 max-w-lg mx-auto">
@@ -186,13 +207,12 @@ const handleSignOut = async () => {  //signout Functiom
               </Link> 
   
               <div className='flex flex-col item-center'>
-                <button className='text-red-700 uppercase'>Delete</button>
+                <button onClick={()=>handleListingDelete(listing._id)} className='text-red-700 uppercase'>Delete</button>
                 <button className='text-green-700 uppercase'>Edit</button>
               </div>
             </div>
           ))}
         </div>}
-      
     </div>
   );
 }
