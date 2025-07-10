@@ -26,7 +26,7 @@ export default function Profile() {
     setFormData({...formData, [e.target.id]: e.target.value});// copying oldform data and update only new inputs 
   }
   
- const handleSubmit = async (e) => { //form submit funtion 
+ const handleSubmit = async (e) => { //form submit update user funtion 
     e.preventDefault();//stop to reload the page and submit from directly
     try {
       dispatch(updateUserStart()); // update the user
@@ -105,7 +105,7 @@ const handleSignOut = async () => {  //signout Functiom
 
 const handleListingDelete = async (listingId) => { // delete user function
    try {
-      const res = await fetch(`/api/listing/delete/${listingId}`, { // send request with user id
+      const res = await fetch(`/api/listing/delete/${listingId}`, { // send request with id list id
         method: 'DELETE',
       });
       const data = await res.json();
@@ -208,7 +208,9 @@ const handleListingDelete = async (listingId) => { // delete user function
   
               <div className='flex flex-col item-center'>
                 <button onClick={()=>handleListingDelete(listing._id)} className='text-red-700 uppercase'>Delete</button>
+                <Link to={`/update-listing/${listing._id}`}>
                 <button className='text-green-700 uppercase'>Edit</button>
+                </Link>
               </div>
             </div>
           ))}
