@@ -13,9 +13,8 @@ const userSlice = createSlice({
   // creating slice
   name: "user", // name of slice
   initialState, // default staring value
-  reducers: {
-    // fuction to update state
 
+  reducers: { // fuction to update state
     SignInStart: (state) => {
       // sets signIn loading to true.
       state.loading = true;
