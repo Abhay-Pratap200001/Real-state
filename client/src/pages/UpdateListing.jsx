@@ -12,7 +12,7 @@ export default function CreateListing() { // creeate listing component
 
   const [files, setFiles] = useState([]);// for storing file which is choose by user to upload
   const [formData, setFormData] = useState({imageUrls: [],
-     name: '',
+    name: '',
     description: '',
     address: '',
     type: 'ren ',
