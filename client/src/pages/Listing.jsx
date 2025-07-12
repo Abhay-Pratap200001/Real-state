@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';// allow to acces route as a based 
 import { Swiper, SwiperSlide } from 'swiper/react'; // 1.main container of carousel, 2.repersent each slide
 import SwiperCore from 'swiper';// engine of swiper work in back of swiper
 import { Navigation } from 'swiper/modules';//allow previous arroe <- ->
+import { useSelector } from 'react-redux';
 import 'swiper/css/bundle';// allow all swiper default style
 import {
   FaBath,
@@ -12,13 +13,16 @@ import {
   FaParking,
   FaShare,
 } from 'react-icons/fa'
+import Contact from '../components/Contact';
 
 export default function Listing() {
   SwiperCore.use([Navigation]);
-  const [listing, setListing] = useState(null);
+  const [listing, setListing] = useState(null); // to add the listing data come from api
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(false);
   const [copied, setCopied] = useState(false); // for copping url
+  const {currentUser} = useSelector((state) => state.user);
+  const [contact, setContact] = useState(false); 
   
 
   const params = useParams();
@@ -64,7 +68,7 @@ export default function Listing() {
 
                 <div
                   className='h-[500px] '
-                  style={{
+                    style={{
                     background: `url(${url}) center no-repeat`,
                     backgroundSize: 'cover',
                   }}>
@@ -144,6 +148,14 @@ export default function Listing() {
                 {listing.furnished ? 'Furnished' : 'Unfurnished'}
               </li>
             </ul>
+
+              {currentUser && listing.userRef !== currentUser._id  && !contact &&( // so only user when loggin dont show listing user is not equal to cureent user only then show contact
+              <button onClick={() =>setContact(true)}  className='bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 p-3'>
+                Contact landlord
+              </button>
+            )}
+            
+            {contact && <Contact listing={listing}/>}   {/*sending listing info to contact*/}  
           </div>
         </div>         
       )}
