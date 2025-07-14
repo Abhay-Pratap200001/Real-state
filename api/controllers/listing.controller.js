@@ -71,14 +71,15 @@ try {
 
 export const getListings = async (req, res, next) =>{
   try {
-    const limit = parseInt(req.query.limit) || 9; // if there is limit then use or use default 9 
+    const limit = parseInt(req.query.limit) || 9; // if there is limit then use or use default 9 to show in page
     const startIndex = parseInt(req.query.startIndex) || 0;// tell from whic index to start if no index strate from 0 index
 
-    let offer = req.query.offer;// 
+    let offer = req.query.offer;
     if (offer === undefined || offer === 'false') { // if user dont sned offer then undefined if false then show both with offer and withoutoffer
       offer = { $in: [false, true] }; // fetch both listing 
     }
- 
+
+    let furnished = req.query.offer;
     if (furnished === undefined || furnished === 'false') {// same
       furnished = { $in: [false, true] };
     }
@@ -93,19 +94,22 @@ export const getListings = async (req, res, next) =>{
       type = { $in: ['sale', 'rent'] };
     }
 
-    const searchTerm = req.query.searchTerm || ''; // if nothing come from client mens mathc all lsiting
+    const searchTerm = req.query.searchTerm || ''; // for hold search value in searchTerm if nothing show default 
 
-    const sort = req.query.sort || 'createdAt';// sort based on user need or use old one by default createdAt
+    const sort = req.query.sort || 'createdAt';//sort all price  in ascending order low to hing
 
-    const order = req.query.order || 'desc'; // if there is no sort order keep in decending
+    const order = req.query.order || 'desc';// if no sort keep it default in decending order high to low
 
     const listings = await Listing.find({ // filtering lsitimg from mogodb
+      //using searchTerm variable
       name: { $regex: searchTerm, $options: 'i' },// is case sensitive search for lsiting
       offer, // already defined
       furnished,
       parking,
       type,
-    })
+    }) 
+
+    //using sort order variable
       .sort({ [sort]: order })// show lsiting according to user or show 9
       .limit(limit)// how many items need in page
       .skip(startIndex);// from where to start index

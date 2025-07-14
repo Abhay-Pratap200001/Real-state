@@ -10,19 +10,20 @@ export default function Header() {
   
    const handleSubmit = (e) => {
     e.preventDefault();
-    const urlParams = new URLSearchParams(window.location.search); // create new obj urlparam to modifiy curry param in current url
+    const urlParams = new URLSearchParams(window.location.search); // create new obj urlparam to and rap in urlsearchparams to perform crud oprsn
     urlParams.set('searchTerm', searchTerm);// save in url what user has written in search form 
     const searchQuery = urlParams.toString();// convert url to string for backend
-    navigate(`/search?${searchQuery}`);// take to user according to search url
+    navigate(`/search?${searchQuery}`);// take to user according to search url 
   };
 
   useEffect(() => {
     const urlParams = new URLSearchParams(location.search); // make new obj and extract url from urlsearch and allow to read
     const searchTermFromUrl = urlParams.get('searchTerm');// extract value of search form from urlparams
+
     if (searchTermFromUrl) {
       setSearchTerm(searchTermFromUrl);// if search term exist set in urlparam and update local components
     }
-  }, [location.search]);// run when search term update
+  },[location.search]);// run when search term update
 
     return (
     <header className="bg-slate-200 shadow-md">{/* // Header container with background and shadow */}
