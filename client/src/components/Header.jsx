@@ -1,13 +1,30 @@
-import React from "react";
+import React ,{useState, useEffect} from "react";
 import { FaSearch } from "react-icons/fa";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useSelector} from "react-redux"
 
 export default function Header() {
   const {currentUser} = useSelector((state) => state.user);
-  console.log(currentUser);
+  const [searchTerm, setSearchTerm] = useState('');
+  const navigate = useNavigate()
   
-  return (
+   const handleSubmit = (e) => {
+    e.preventDefault();
+    const urlParams = new URLSearchParams(window.location.search); // create new obj urlparam to modifiy curry param in current url
+    urlParams.set('searchTerm', searchTerm);// save in url what user has written in search form 
+    const searchQuery = urlParams.toString();// convert url to string for backend
+    navigate(`/search?${searchQuery}`);// take to user according to search url
+  };
+
+  useEffect(() => {
+    const urlParams = new URLSearchParams(location.search); // make new obj and extract url from urlsearch and allow to read
+    const searchTermFromUrl = urlParams.get('searchTerm');// extract value of search form from urlparams
+    if (searchTermFromUrl) {
+      setSearchTerm(searchTermFromUrl);// if search term exist set in urlparam and update local components
+    }
+  }, [location.search]);// run when search term update
+
+    return (
     <header className="bg-slate-200 shadow-md">{/* // Header container with background and shadow */}
        <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
        <Link to='/'>   {/* Making logo clickeable to redirect home */}
@@ -18,13 +35,16 @@ export default function Header() {
           </h1>
         </Link>
         
-        <form className="bg-slate-100 p-3 rounded-lg flex items-center"> {/* Search bar input */}
+        <form onSubmit={handleSubmit} className="bg-slate-100 p-3 rounded-lg flex items-center"> {/* Search bar input */}
           <input
             type="text"
             placeholder="serch...."
-            className="bg-transparent focus:outline-none w-24 sm:w-64"/>
-          {/* react icon Fasearch - search igon of input */}
-            <FaSearch className='text-slate-600' />
+            className="bg-transparent focus:outline-none w-24 sm:w-64"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}/>
+            <button>
+            <FaSearch className='text-slate-600'/> {/* react icon Fasearch - search igon of input */}
+            </button>
         </form>
 
         {/* Making all component clickable to redirect there page */}
