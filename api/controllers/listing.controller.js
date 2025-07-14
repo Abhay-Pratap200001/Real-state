@@ -69,47 +69,46 @@ try {
 
 export const getListings = async (req, res, next) =>{
   try {
-    const limit = parseInt(req.query.limit) || 9;
-    const startIndex = parseInt(req.query.startIndex) || 0;
-    let offer = req.query.offer;
+    const limit = parseInt(req.query.limit) || 9; // if there is limit then use or use default 9 
+    const startIndex = parseInt(req.query.startIndex) || 0;// tell from whic index to start if no index strate from 0 index
 
-    if (offer === undefined || offer === 'false') {
-      offer = { $in: [false, true] };
+    let offer = req.query.offer;// 
+    if (offer === undefined || offer === 'false') { // if user dont sned offer then undefined if false then show both with offer and withoutoffer
+      offer = { $in: [false, true] }; // fetch both listing 
     }
  
-    if (furnished === undefined || furnished === 'false') {
+    if (furnished === undefined || furnished === 'false') {// same
       furnished = { $in: [false, true] };
     }
 
     let parking = req.query.parking;
-
-    if (parking === undefined || parking === 'false') {
+    if (parking === undefined || parking === 'false') {//same
       parking = { $in: [false, true] };
     }
 
     let type = req.query.type;
-
-    if (type === undefined || type === 'all') {
+    if (type === undefined || type === 'all') {// if type all or nothing send from frontend show all
       type = { $in: ['sale', 'rent'] };
     }
 
-     const searchTerm = req.query.searchTerm || '';
+     const searchTerm = req.query.searchTerm || ''; // if nothing come from client mens mathc all lsiting
 
-    const sort = req.query.sort || 'createdAt';
+    const sort = req.query.sort || 'createdAt';// sort based on user need or use old one by default createdAt
 
-    const order = req.query.order || 'desc';
+    const order = req.query.order || 'desc'; // order deside latest or old or in default show in descending
 
-    const listings = await Listing.find({
-      name: { $regex: searchTerm, $options: 'i' },
-      offer,
+    const listings = await Listing.find({ // filtering lsitimg from mogodb
+      name: { $regex: searchTerm, $options: 'i' },// is case sensitive search for lsiting
+      offer, // already defined
       furnished,
       parking,
       type,
     })
-      .sort({ [sort]: order })
-      .limit(limit)
-      .skip(startIndex);
-     return res.status(200).json(listings);
+    
+      .sort({ [sort]: order })// show lsiting according to user or show 9
+      .limit(limit)// how many items need in page
+      .skip(startIndex);// from where to start index
+     return res.status(200).json(listings);// send res to client
 
   } catch (error) {
     next(error)
