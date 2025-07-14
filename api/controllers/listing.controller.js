@@ -11,6 +11,7 @@ export const createListing = async (req, res, next) => {
 };
 
 
+
 export const deleteListing = async (req, res, next) => { // delet listing function
   const listing = await Listing.findById(req.params.id);// finding user by user_id which is save in db
 
@@ -29,6 +30,7 @@ export const deleteListing = async (req, res, next) => { // delet listing functi
     next(error);
   }
 };
+
 
 
 export const updateListing = async (req, res, next) => { // updatelist function
@@ -91,11 +93,11 @@ export const getListings = async (req, res, next) =>{
       type = { $in: ['sale', 'rent'] };
     }
 
-     const searchTerm = req.query.searchTerm || ''; // if nothing come from client mens mathc all lsiting
+    const searchTerm = req.query.searchTerm || ''; // if nothing come from client mens mathc all lsiting
 
     const sort = req.query.sort || 'createdAt';// sort based on user need or use old one by default createdAt
 
-    const order = req.query.order || 'desc'; // order deside latest or old or in default show in descending
+    const order = req.query.order || 'desc'; // if there is no sort order keep in decending
 
     const listings = await Listing.find({ // filtering lsitimg from mogodb
       name: { $regex: searchTerm, $options: 'i' },// is case sensitive search for lsiting
@@ -104,12 +106,10 @@ export const getListings = async (req, res, next) =>{
       parking,
       type,
     })
-    
       .sort({ [sort]: order })// show lsiting according to user or show 9
       .limit(limit)// how many items need in page
       .skip(startIndex);// from where to start index
      return res.status(200).json(listings);// send res to client
-
   } catch (error) {
     next(error)
   }
