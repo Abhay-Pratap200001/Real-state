@@ -43,7 +43,6 @@ export default function Listingitem({ listing }) { // accepting a listing as a p
           </div>
 
          </div>
-
         </div>
       </Link>
     </div>

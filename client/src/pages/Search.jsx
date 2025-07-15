@@ -18,8 +18,7 @@ export default function Search() {
 
   const [loading, setLoading] = useState(false);
   const [listings, setListings] = useState([]);
-  console.log(listings);
-  
+  const [showMore, setShowMore] = useState(false);  
 
 
 //step3
@@ -51,9 +50,15 @@ export default function Search() {
 
     const fetchListings = async () => {
       setLoading(true);
+      setShowMore(false);
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
+       if (data.length > 8){//if length is more then 8 then show show more
+        setShowMore(true);
+      } else {
+        setShowMore(false);
+      }
       setListings(data);
       setLoading(false);
     };
@@ -94,7 +99,7 @@ export default function Search() {
   const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(); // adding all values into the urlparams
-    urlParams.set('searchTerm', sidebardata.searchTerm);//set all current select values in url.oarams.set
+    urlParams.set('searchTerm', sidebardata.searchTerm);//set all current select values in url.poarams.set
     urlParams.set('type', sidebardata.type);
     urlParams.set('parking', sidebardata.parking);
     urlParams.set('furnished', sidebardata.furnished);
@@ -105,6 +110,21 @@ export default function Search() {
     navigate(`/search?${searchQuery}`);// navigate according to url
   };
 
+
+
+    const onShowMoreClick = async () => {
+    const numberOfListings = listings.length; // show how many index in screen
+    const startIndex = numberOfListings;
+    const urlParams = new URLSearchParams(location.search);// get current url from params
+    urlParams.set('startIndex', startIndex);// add params startindex from where fetch data
+    const searchQuery = urlParams.toString();
+    const res = await fetch(`/api/listing/get?${searchQuery}`);
+    const data = await res.json();
+    if (data.length < 9) { // if data is less then 9 dont show button showmore
+      setShowMore(false);
+    }
+    setListings([...listings, ...data]);// add previous listings to new listing
+  };
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -197,19 +217,26 @@ export default function Search() {
 
        <div className='flex-1'>
         <h1 className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>Listing results:</h1>
-        
-        <div className="p-7 flex flex-warap gap-4">
+        <div className="p-7 flex flex-wrap  gap-4">
           {!loading && listings.length === 0 &&( //if no loading lsiting is 0 show this
             <p className="text-xl text-slate-600">No Lsiting Match</p>  
           )}
           {loading && (
-            <p className="text-xl text-slate-900 text-center w-full">Loading....</p> // if loading is true showq loading
+            <p className="text-xl text-slate-900 text-center w-full">Loading....</p> // if loading is true show Loading 
           )}
 
           {
-            !loading && listings && listings.map((listing) => <Listingitem key={listing._id} listing={listing}/>// if no loading listings is true map a lsitings and send to a lsitings as a prop 
-            )
-          }
+            !loading && listings && listings.map((listing) => (<Listingitem key={listing._id} listing={listing}/>//loading id false and listing is true map on it and send prop to listingitem 
+            ))}
+
+             {showMore && ( //if show more is then show button
+            <button
+              onClick={onShowMoreClick}
+              className='text-green-700 hover:underline p-7 text-center w-full '>
+              Show more
+            </button>
+          )}
+
         </div>
       </div>
     </div>
