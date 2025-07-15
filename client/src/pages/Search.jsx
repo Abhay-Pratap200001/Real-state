@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import Listingitem from "../components/Listingitem";
 
 export default function Search() {
-
     const navigate = useNavigate() 
     const [sidebardata, setSidebardata] = useState({
     searchTerm: '',
@@ -48,6 +47,7 @@ export default function Search() {
       });
     }
 
+
     const fetchListings = async () => {
       setLoading(true);
       setShowMore(false);
@@ -65,8 +65,6 @@ export default function Search() {
     fetchListings();
  },[location.search])
   
-
-
 
 
 //step1
@@ -111,7 +109,6 @@ export default function Search() {
   };
 
 
-
     const onShowMoreClick = async () => {
     const numberOfListings = listings.length; // show how many index in screen
     const startIndex = numberOfListings;
@@ -125,6 +122,7 @@ export default function Search() {
     }
     setListings([...listings, ...data]);// add previous listings to new listing
   };
+
 
   return (
     <div className="flex flex-col md:flex-row">
@@ -221,6 +219,7 @@ export default function Search() {
           {!loading && listings.length === 0 &&( //if no loading lsiting is 0 show this
             <p className="text-xl text-slate-600">No Lsiting Match</p>  
           )}
+          
           {loading && (
             <p className="text-xl text-slate-900 text-center w-full">Loading....</p> // if loading is true show Loading 
           )}
@@ -235,7 +234,7 @@ export default function Search() {
               className='text-green-700 hover:underline p-7 text-center w-full '>
               Show more
             </button>
-          )}
+          )} 
 
         </div>
       </div>
