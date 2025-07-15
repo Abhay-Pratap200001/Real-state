@@ -117,7 +117,7 @@ export default function Listing() {
 
               {listing.offer && (
                 <p className='bg-green-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
-                  ${+listing.regularPrice - +listing.discountPrice} {/*confirming pricer has to be number and finding how uch user save*/}
+                  ${+listing.regularPrice - +listing.discountPrice} OFF {/*confirming pricer has to be number and finding how uch user save*/}
                 </p>
               )}
             </div> 

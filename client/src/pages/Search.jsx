@@ -1,6 +1,7 @@
 import { get } from "mongoose";
 import React, {useState,useEffect} from "react";
 import { useNavigate } from "react-router-dom";
+import Listingitem from "../components/Listingitem";
 
 export default function Search() {
 
@@ -105,13 +106,11 @@ export default function Search() {
   };
 
 
-
-
   return (
     <div className="flex flex-col md:flex-row">
       <div className="p-7  border-b-2 md:border-r-2 md:min-h-screen"> {/* {left side div} */}
 
-        <form onChange={handleSubmit} className="flex flex-col gap-8">
+        <form onSubmit={handleSubmit} className="flex flex-col gap-8">
               <div className="flex items-center gap-2">  
             <label className="whitespace-nowrap font-semibold"> {/* {Search section} */}
               Search Term: 
@@ -196,10 +195,23 @@ export default function Search() {
         </form>
       </div>
 
-       <div className=''>
+       <div className='flex-1'>
         <h1 className='text-3xl font-semibold border-b p-3 text-slate-700 mt-5'>Listing results:</h1>
-      </div>
+        
+        <div className="p-7 flex flex-warap gap-4">
+          {!loading && listings.length === 0 &&( //if no loading lsiting is 0 show this
+            <p className="text-xl text-slate-600">No Lsiting Match</p>  
+          )}
+          {loading && (
+            <p className="text-xl text-slate-900 text-center w-full">Loading....</p> // if loading is true showq loading
+          )}
 
+          {
+            !loading && listings && listings.map((listing) => <Listingitem key={listing._id} listing={listing}/>// if no loading listings is true map a lsitings and send to a lsitings as a prop 
+            )
+          }
+        </div>
+      </div>
     </div>
   );
 }

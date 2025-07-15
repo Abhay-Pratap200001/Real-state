@@ -13,5 +13,5 @@ proxy:{
 }
 },
 
-  plugins: [react, tailwindcss()],
+  plugins: [react, tailwindcss(),],
 });
