@@ -15,7 +15,6 @@ import Search from "./pages/Search";
 
 function App() {
   return (
-
     // BrowserRouter enables routing in the app
     <BrowserRouter>
     <Header/>

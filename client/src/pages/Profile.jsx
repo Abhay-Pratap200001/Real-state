@@ -12,6 +12,8 @@ import { Link } from "react-router-dom";
 import { useDispatch } from 'react-redux';//dispatch used to trigger Redux actions
 import { useSelector } from "react-redux";//useselector used to read state from Redux store
 import { useRef, useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
+
 
 export default function Profile() {
   const [formData, setFormData] = useState({})// to manage form fields inputs data
@@ -52,6 +54,9 @@ export default function Profile() {
     }
   };
 
+
+
+
   const handleDeleteUser = async () => { // deleting user function
     try {
       dispatch(deleteUserStart());
@@ -61,14 +66,26 @@ export default function Profile() {
       const data = await res.json();  //storing resonpsw
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message));
+        toast.error(data.message || "Failed to delete user");
         return; //if data.success fails, show erro
       }
       dispatch(deleteUserSuccess(data));  //if passed, dispatch success with data
+      toast.success("Account deleted successfully 💀",{
+         style: {
+          background: '#000',      // black background
+           color: '#fff',           // white text
+        },
+      });
+
     }
      catch (error) {
       dispatch(deleteUserFailure(error.message));// if some error then show
+       toast.error("Something went wrong");
     }
   };
+
+
+
 
 const handleSignOut = async () => {  //signout Functiom
     try {
@@ -77,11 +94,20 @@ const handleSignOut = async () => {  //signout Functiom
       const data = await res.json(); //string res 
       if (data.success === false) {
         dispatch(deleteUserFailure(data.message)); //if data.success fails, show erro
+        toast.error(data.message || "Sign out failed");
         return;
       }
       dispatch(deleteUserSuccess(data));  //if passed, dispatch success with data
+      toast.success("Signed out successfully 👋🏻", {
+         style: {
+          background: 'pink',      // black background
+          color: '#fff',           // white text
+        },
+      });
+
     } catch (error) {
       dispatch(deleteUserFailure(data.message)); // if some error then show
+      toast.error("Something went wrong");
     }
   };
 
@@ -116,6 +142,13 @@ const handleListingDelete = async (listingId) => { // delete user function
 
       setUserListings((prev) => prev.filter((listing) => listing._id !== listingId) // updating the userListing by listing which  deleted
       );
+       toast.success("Listing deleted successfully 💀", {
+         style: {
+          background: 'black',      // black background
+          color: 'white',           // white text
+        },
+      });
+
     } catch (error) {
       console.log(error.message);
     }
@@ -123,7 +156,8 @@ const handleListingDelete = async (listingId) => { // delete user function
 
 
   return (
-    <div className="p-3 max-w-lg mx-auto">
+    <div className="p-3 max-w-lg mx-auto mt-10">
+      <Toaster position="top-center" />
       <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
 
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">

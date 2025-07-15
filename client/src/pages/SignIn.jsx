@@ -4,6 +4,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux"; //dispatch used to trigger Redux actions, useselector used to read state from Redux store
 import { SignInStart, SignInSuccess, SignInFaliure } from "../user/userSlice";
 import OAuth from "../components/OAuth";
+import toast, { Toaster } from 'react-hot-toast';
+
 
 export default function SignIn() {
   const [formData, setFormData] = useState({}); //state for store form input field data
@@ -20,6 +22,8 @@ export default function SignIn() {
 
   const handleSubmit = async (e) => {  //function for submmit form
     e.preventDefault();
+      toast.loading("Signing in...");
+
 
     try {
       dispatch(SignInStart());
@@ -35,18 +39,27 @@ export default function SignIn() {
       console.log(data);
       if (data.success === false) {
         dispatch(SignInFaliure(data.message)); //if error occur its send from backend
+        toast.dismiss(); 
+        toast.error(data.message || "Sign in failed");
         return;
       }
 
     dispatch(SignInSuccess(data)); 
-    navigate("/");
+    toast.dismiss(); // remove the loading toast
+    toast.success("Signed in successfully 😊");
+     setTimeout(() => {
+      navigate("/");
+    }, 1500);
     } catch (error) {
       dispatch(SignInFaliure(error.message));
+       toast.dismiss();
+      toast.error("Something went wrong");
     }
   };
 
   return (
     <div className="p-3 max-w-lg mx-auto">
+      <Toaster position="top-center" reverseOrder={false} />
       <h1 className="text-3xl text-center font-semibold my-7">Sign In</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input

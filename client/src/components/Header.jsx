@@ -7,7 +7,26 @@ export default function Header() {
   const {currentUser} = useSelector((state) => state.user);
   const [searchTerm, setSearchTerm] = useState('');
   const navigate = useNavigate()
+
+  ////
+
+  const [navSize, setnavSize] = useState("5rem");
+  const [navColor, setnavColor] = useState("slate-200");
   
+    const listenScrollEvent = () => {
+    window.scrollY > 10 ? setnavColor("#252734") : setnavColor("#e2e8f0");
+    window.scrollY > 10 ? setnavSize("5rem") : setnavSize("5rem");
+  };
+
+  useEffect(() => {
+    window.addEventListener("scroll", listenScrollEvent);
+    return () => {
+      window.removeEventListener("scroll", listenScrollEvent);
+    };
+  }, []);
+
+
+  /////
    const handleSubmit = (e) => {
     e.preventDefault();
     const urlParams = new URLSearchParams(window.location.search); // create new obj urlparam to and rap in urlsearchparams to perform crud oprsn
@@ -26,7 +45,13 @@ export default function Header() {
   },[location.search]);// run when search term update
 
     return (
-    <header className="bg-slate-200 shadow-md">{/* // Header container with background and shadow */}
+    <header
+    style={{
+          backgroundColor: navColor,
+          height: navSize,
+          transition: "all 1s"
+        }}
+     className="bg-slate-200 shadow-md fixed top-0 w-full z-10">{/* // Header container with background and shadow */}
        <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
        <Link to='/'>   {/* Making logo clickeable to redirect home */}
           <h1 className='font-bold text-sm sm:text-xl flex flex-wrap'>
