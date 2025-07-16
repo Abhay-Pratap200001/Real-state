@@ -156,15 +156,15 @@ const handleListingDelete = async (listingId) => { // delete user function
 
 
   return (
-    <div className="p-3 max-w-lg mx-auto mt-10">
+    <div>
+    <div className="p-3 max-w-lg mx-auto mt-50">
       <Toaster position="top-center" />
-      <h1 className="text-3xl font-semibold text-center my-7">Profile</h1>
 
+      <h1 className="text-3xl font-semibold text-center mb-4">Profile</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input type="file" ref={fileRef}  hidden accept="'image/*"/>
         <img onClick={()=>fileRef.current.click()}
           src={currentUser.avatar} // adding profile according to currentuser 
-          alt="profile"
           className="rounded-full h-24 w-24 object-cover cursor-pointer self-center mt-2"/>
 
         <input
@@ -249,6 +249,7 @@ const handleListingDelete = async (listingId) => { // delete user function
             </div>
           ))}
         </div>}
+    </div>
     </div>
   );
 }

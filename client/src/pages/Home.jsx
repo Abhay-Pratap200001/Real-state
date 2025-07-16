@@ -92,24 +92,20 @@ function Home() {
         </motion.div>
       </div>
 
-      {/* swiper */}
-
-      <Swiper navigation>
-        {offerListings &&
-          offerListings.length > 0 &&
-          offerListings.map((listing) => (
-            <SwiperSlide>
-              <div
-                style={{
-                  background: `url(${listing.imageUrls[0]}) center no-repeat`,
-                  backgroundSize: "cover",
-                }}
-                className="h-[500px]"
-                key={listing._id}
-              ></div>
-            </SwiperSlide>
-          ))}
-      </Swiper>
+  <Swiper navigation>
+  {offerListings &&
+    offerListings.length > 0 &&
+    offerListings.map((listing) => (
+      <SwiperSlide key={listing._id}>
+    <div
+       className="w-full h-[300px] sm:h-[400px] md:h-[500px]"
+          style={{
+          background: `url(${listing.imageUrls[0]}) center center / cover no-repeat`,
+          }}
+        />
+      </SwiperSlide>
+    ))}
+</Swiper>
 
       {/* listing resutly */}
       <div className="min-w-6xl mx-auto p-3 flex flex-col items-center iy gap-8 my-10 ">
@@ -197,3 +193,6 @@ function Home() {
 }
 
 export default Home;
+
+
+

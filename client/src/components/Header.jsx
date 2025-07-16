@@ -11,12 +11,12 @@ export default function Header() {
 
   ////
 
-  const [navSize, setnavSize] = useState("5rem");
+  const [navSize, setnavSize] = useState("4rem");
   const [navColor, setnavColor] = useState("slate-100");
 
   const listenScrollEvent = () => {
     window.scrollY > 10 ? setnavColor("#c7d2fe") : setnavColor("#f2e8fe");
-    window.scrollY > 10 ? setnavSize("6rem") : setnavSize("5rem");
+    window.scrollY > 10 ? setnavSize("6rem") : setnavSize("4rem");
   };
 
   useEffect(() => {

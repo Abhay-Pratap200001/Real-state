@@ -1,7 +1,13 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function About() {
+   const [showContact, setShowContact] = useState(false); // state to toggle visibility
+
+  const handleToggle = () => {
+    setShowContact(!showContact); // toggle visibility
+  };
+
   return (
     <div className="py-20 px-4 max-w-6xl mx-auto text-slate-700">
       {/* Main Heading */}
@@ -73,6 +79,20 @@ function About() {
           View Listings
         </Link>
       </div>
+
+       <div className='text-center pt-7'>
+      <button
+        onClick={handleToggle}
+        className="cursor-pointer bg-green-400 px-4 py-2 rounded-md text-white font-semibold hover:bg-green-500 transition">
+        Contact Us
+      </button>
+      {showContact && (
+        <div className="mt-4 text-slate-700 space-y-1">
+          <p className="text-blue-600 hover:cursor-pointer hover:underline">abhaypratap2638359@gmail.com</p>
+          <p className="text-blue-600 hover:cursor-pointer hover:underline">+91 9935880302</p>
+        </div>
+      )}
+    </div>
     </div>
   );
 }
