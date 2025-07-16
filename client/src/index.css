@@ -1,15 +1,25 @@
 @import "tailwindcss";
 
-/* index.css */
-
-/* Apply a professional dark slate gradient background */
-body {
-background-image: linear-gradient(-225deg, #69EACB 0%, #EACCF8 48%, #6654F1 100%);  color: #1f2937;
+html,body{
+   background: linear-gradient(to bottom, #c7d2fe, #a5b4fc, #c8e7f6);
   font-family: 'Inter', sans-serif; /* optional, cleaner look */
-  box-shadow: inset 0 0 30px #fbcfe8, inset 0 0 30px #e9d5ff;
+  box-shadow: inset 0 0 30px #fbcfe8, inset 0 0 30px #aea8b5;
+  color: blu;
+   overflow: hidden;
+  height: auto;
+  scroll-behavior: auto !important;
 }
-/* Optional: Ensure scrollbars and default fonts are styled */
+
+
 * {
   box-sizing: border-box;
 }
 
+ .glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+}
