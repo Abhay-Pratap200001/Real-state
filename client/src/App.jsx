@@ -13,14 +13,12 @@ import UpdateListing from "./pages/UpdateListing";
 import Listing from "./pages/Listing";
 import Search from "./pages/Search";
 import SmoothScroll from "./Animatons/SmoothScroll" 
-// import ScrollToTop from "./Animatons/ScrollToTop";
 
 function App() {
   return (
     // BrowserRouter enables routing in the app
     <BrowserRouter>
       <SmoothScroll>
-         {/* <ScrollToTop /> */}
     <Header/>
       <Routes>  {/* Routes component holds all the individual Route definitions */}
         <Route path="/" element={<Home />} />

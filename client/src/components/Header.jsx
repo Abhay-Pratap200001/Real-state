@@ -58,10 +58,11 @@ export default function Header() {
         <Link to="/">
           {" "}
           {/* Making logo clickeable to redirect home */}
-          <h1 className="font-bold text-sm sm:text-xl flex flex-wrap">
+          <h1 className="font-bold text-sm sm:text-2xl flex flex-wrap">
             {/*website logitems */}
-
-           <span className="flex pr-3 ">
+            <span className="text-slate-500 pt-1 cursor-pointer hover:underline">Nestora-Real</span>
+            <span className="text-slate-700 pt-1 cursor-pointer hover:underline">Estate</span>
+         <span className="pl-2">
            <lord-icon
              src="https://cdn.lordicon.com/dznelzdk.json"
              trigger="loop"
@@ -69,11 +70,10 @@ export default function Header() {
              colors="primary:#4bb3fd,secondary:#f24c00,tertiary:#b26836,quaternary:#66d7ee,quinary:#646e78,senary:#242424">
               </lord-icon>
             </span> 
-
-            <span className="text-slate-500">Nestora-</span>
-            <span className="text-slate-700">Estate</span>
-          </h1>
+              </h1>
         </Link>
+
+        
 
         <form
           onSubmit={handleSubmit}

@@ -60,7 +60,7 @@ export default function SignIn() {
   return (
     <div className="p-3 max-w-lg mx-auto">
       <Toaster position="top-center" reverseOrder={false} />
-      <h1 className="text-3xl text-center font-semibold my-20">Sign In</h1>
+      <h1 className="text-3xl text-center font-semibold mt-60 mb-10">Sign In</h1>
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="email"
