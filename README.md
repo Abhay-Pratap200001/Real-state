@@ -97,5 +97,5 @@ _**Screenshots **
 ---
 
 HOME_PAGE-->
-!img[ alt](https://github.com/Abhay-Pratap200001/Real-state/blob/main/Screenshot%202025-07-17%20091417.png?raw=true)
+![img alt](https://github.com/Abhay-Pratap200001/Real-state/blob/main/Screenshot%202025-07-17%20091417.png?raw=true)
 
