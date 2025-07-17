@@ -51,7 +51,7 @@ function Home() {
   return (
     <div className="">
       {/*top */}
-      <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto">
+      <div className="flex flex-col gap-6 py-16 sm:py-24 md:py-28 px-3 max-w-6xl mx-auto">
         <motion.h1
           className="text-slate-700 font-bold text-3xl lg:text-6xl cursor-pointer"
           initial={{ opacity: 0, y: 40 }} // Start invisible and moved down
@@ -108,7 +108,7 @@ function Home() {
 </Swiper>
 
       {/* listing resutly */}
-      <div className="min-w-6xl mx-auto p-3 flex flex-col items-center iy gap-8 my-10 ">
+<div className="w-full max-w-6xl mx-auto px-3 sm:px-6 py-6 flex flex-col items-center gap-8">
         {offerListings &&
           offerListings.length > 0 && ( // if there is offerlisting and length is greater then 0 run
             <motion.div
