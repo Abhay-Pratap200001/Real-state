@@ -99,3 +99,40 @@ _**Screenshots **
 HOME_PAGE-->
 ![img alt](https://github.com/Abhay-Pratap200001/Real-state/blob/main/Screenshot%202025-07-17%20091417.png?raw=true)
 
+
+
+SIGNUP_PAGE-->
+![img alt](https://github.com/Abhay-Pratap200001/Real-state/blob/main/Screenshot%202025-07-17%20092632.png?raw=true)
+
+
+
+SIGIN_PAGE-->
+![img alt](https://github.com/Abhay-Pratap200001/Real-state/blob/main/Screenshot%202025-07-17%20091446.png?raw=true)
+
+
+
+PROFILR_UPDATE_PAGE-->
+![img alt](https://github.com/Abhay-Pratap200001/Real-state/blob/main/Screenshot%202025-07-17%20092850.png?raw=true)
+
+
+
+CREATE_LISTING_PAGE-->
+![img alt](https://github.com/Abhay-Pratap200001/Real-state/blob/main/Screenshot%202025-07-17%20093007.png?raw=true)
+
+
+
+ABOUT_PAGE-->
+![img alt](https://github.com/Abhay-Pratap200001/Real-state/blob/main/Screenshot%202025-07-17%20092643.png?raw=true)
+
+
+
+LISTINGS_PAGE-->
+![img alt](https://github.com/Abhay-Pratap200001/Real-state/blob/main/Screenshot%202025-07-17%20092741.png?raw=true)
+
+
+
+LISTING_PAGE-->
+![img alt](https://github.com/Abhay-Pratap200001/Real-state/blob/main/Screenshot%202025-07-17%20092759.png?raw=true)
+
+
+
