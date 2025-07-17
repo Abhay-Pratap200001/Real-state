@@ -111,7 +111,7 @@ SIGIN_PAGE-->
 
 
 
-PROFILR_UPDATE_PAGE-->
+PROFILE_UPDATE_PAGE-->
 ![img alt](https://github.com/Abhay-Pratap200001/Real-state/blob/main/Screenshot%202025-07-17%20092850.png?raw=true)
 
 
