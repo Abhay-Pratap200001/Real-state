@@ -123,9 +123,8 @@ export default function Header() {
 
  {/* Hamburger Menu Icon */}
         <div
-          className="sm:hidden text-xl cursor-pointer"
-          onClick={() => setShowMobileMenu(!showMobileMenu)}
-        >
+          className="sm:hidden text-2xl cursor-pointer"
+          onClick={() => setShowMobileMenu(!showMobileMenu)}>
           {showMobileMenu ? <FaTimes /> : <FaBars />}
         </div>
       </div>
