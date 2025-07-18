@@ -58,10 +58,10 @@ export default function Header() {
         <Link to="/">
           {" "}
           {/* Making logo clickeable to redirect home */}
-          <h1 className="font-bold text-sm sm:text-2xl flex flex-wrap">
+          <h1 className="font-bold text-sm sm:text-2xl flex flex-wrap ">
             {/*website logitems */}
-            <span className="text-slate-500 pt-1 cursor-pointer hover:underline">Nestora-Real</span>
-            <span className="text-slate-700 pt-1 cursor-pointer hover:underline">Estate</span>
+            <span className="text-slate-500 pt-1 cursor-pointer ">Nestora-Real</span>
+            <span className="text-slate-700 pt-1 cursor-pointer ">Estate</span>
          <span className="pl-2">
            <lord-icon
              src="https://cdn.lordicon.com/dznelzdk.json"

@@ -14,6 +14,7 @@ import Listing from "./pages/Listing";
 import Search from "./pages/Search";
 import SmoothScroll from "./Animatons/SmoothScroll" 
 import ContactUs from "./pages/ContactUs";
+import Footer from "./pages/Footer";
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
         <Route path="/update-listing/:listingId" element={<UpdateListing/>} />
         </Route>
       </Routes>
+      <Footer/>
       </SmoothScroll>
     </BrowserRouter>
   );
