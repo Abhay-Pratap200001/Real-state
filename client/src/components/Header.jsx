@@ -108,23 +108,20 @@ export default function Header() {
             </li>
           </Link>
 
-          <Link to={"/contact-us"}>
-          <li className="hidden sm:inline text-slate-700 hover:underline">
-            Contact-us
-          </li>
-          </Link>
-
           <Link to="/profile">
             {currentUser ? (
               <img
                 className="rounded-full h-7 w-7 object-cover"
                 src={currentUser.avatar}
-                alt="profile"
-              />
-            ) : (
-              <li className=" text-slate-700 hover:underline"> Sign in</li>
-            )}
+                alt="profile"/>):(<li className=" text-slate-700 hover:underline"> Sign in</li>)}
           </Link>
+
+            <Link to={"/contact-us"}>
+          <li className="hidden sm:inline text-slate-700 hover:underline">
+            Contact us
+          </li>
+          </Link>
+
         </ul>
       </div>
     </header>

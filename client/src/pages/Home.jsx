@@ -5,7 +5,6 @@ import { Navigation } from "swiper/modules";
 import SwiperCore from "swiper";
 import "swiper/css/bundle";
 import Listingitem from "../components/Listingitem";
-import { motion } from "framer-motion";
 
 function Home() {
   const [offerListings, setOfferListings] = useState([]);
@@ -50,10 +49,9 @@ function Home() {
 
   return (
    <div>
-    home
       {/*top */}
-      <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto mt-20">
-        <h1 className="text-slate-700 font-bold text-3xl lg:text-6xl">
+      <div className="flex flex-col gap-6 p-28 px-3 max-w-6xl mx-auto mt-13">
+        <h1 className="text-slate-700 font-bold text-3xl lg:text-6xl ">
           Find your next <span className="text-slate-500">perfect</span>
           <br />
           place with ease
@@ -74,7 +72,7 @@ function Home() {
 
 
       {/* listing resutly */}
-      <div className='min-w-6xl mx-auto p-3 flex flex-col items-center iy gap-8 my-10 '>
+      <div className='min-w-6xl mx-auto p-3 flex flex-col items-center gap-8 mt-5 '>
         {offerListings && offerListings.length > 0 && ( // if there is offerlisting and length is greater then 0 run
           <div className=''>
             <div className='my-3'>
@@ -90,7 +88,7 @@ function Home() {
         )}
 
           {rentListings && rentListings.length > 0 && (
-          <div className=''>
+          <div>
             <div className='my-3'>
               <h2 className='text-2xl font-semibold text-slate-600'>Recent places for rent</h2>
               <Link className='text-sm text-blue-800 hover:underline' to={'/search?type=rent'}>Show more places for rent</Link>

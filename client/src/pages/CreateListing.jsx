@@ -70,13 +70,6 @@ export default function CreateListing() { // creeate listing component
     formData.append('upload_preset', CLOUDINARY_PRESET); // senfing preset configuration with image upload request
     xhr.open('POST', CLOUDINARY_URL);//opening the cloudinary api using post
 
-    // xhr.upload.addEventListener('progress', (event) => {
-    //   if (event.lengthComputable) {
-    //     const percent = (event.loaded / event.total) * 100;
-    //     console.log(`Upload is ${Math.round(percent)}% done`);
-    //   }
-    // });
-
     xhr.onload = () => { // run when imgupload request resolve or rejecr
       if (xhr.status === 200) {
         const response = JSON.parse(xhr.responseText); // convert server response from string to j.s object

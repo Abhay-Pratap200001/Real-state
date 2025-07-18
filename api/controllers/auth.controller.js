@@ -38,51 +38,6 @@ export const signin = async (req, res, next) => { //signin function
 
 
 
-export const google = async (req, res, next) => { // google oAuth signin function
-  try {
-    const user = await User.findOne({ email: req.body.email }); //findig email from db
-    if (user) {
-      const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET); // generating jwt token and coverting user id to jwt id
-      const { password: pass, ...rest } = user._doc;// storing password sapprate and store other field in rest obj 
-      res
-        .cookie('access_token', token,// sending cookies to frontend with the name of access_token
-        { httpOnly: true })
-        .status(200)
-        .json(rest); // sending user info to frontend without pass
-
-    } else {
-
-      const generatedPassword =  //genrating password automatically
-        Math.random().toString(36).slice(-8) +
-        Math.random().toString(36).slice(-8);
-      const hashedPassword = bcryptjs.hashSync(generatedPassword, 10); // hashing the password
-
-      const newUser = new User({
-        username:
-        req.body.name.split(' ').join('').toLowerCase() + //creating unique username
-        Math.random().toString(36).slice(-4), 
-        email: req.body.email,  // accepting email
-        password: hashedPassword,// password
-        avatar: req.body.photo,// avatar which comes from google account
-      });
-
-
-      await newUser.save();  //saving new user in db
-      const token = jwt.sign({ id: newUser._id }, process.env.JWT_SECRET); // generating jwt token and coverting user id to jwt id
-      const { password: pass, ...rest } = newUser._doc;// storing password sapprate and store other field in rest obj 
-      res
-        .cookie('access_token', token, // sending cookies to frontend with the name of access_token
-         { httpOnly: true }) 
-        .status(200)
-        .json(rest);// sending user info to frontend without pass
-    }
-    
-  } catch (error) {
-    next(error);
-  }
-};
-
-
 export const signOut = async (req, res, next) => { // signOut function 
   try {
     res.clearCookie('access_token'); // clear cooies which is store in frontend
