@@ -72,7 +72,7 @@ function Home() {
 
 
       {/* listing resutly */}
-      <div className='min-w-6xl mx-auto p-3 flex flex-col items-center gap-8 mt-5 '>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {offerListings && offerListings.length > 0 && ( // if there is offerlisting and length is greater then 0 run
           <div className=''>
             <div className='my-3'>
