@@ -9,6 +9,7 @@ export default function Listingitem({ listing }) { // accepting a listing as a p
         <img
           src={listing.imageUrls[0]}
           alt="img"
+          loading="lazy"
           className="h-[320px] sm:h-[220px] w-full object-cover hover:scale-105 transition-scale duration-300"/>
           
         <div className="p-3 flex flex-col gap-2 w-full">

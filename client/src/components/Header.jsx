@@ -51,8 +51,8 @@ export default function Header() {
         height: navSize,
         transition: "all 1s",
       }}
-      className="bg-slate-200 shadow-md fixed top-0 w-full z-10"
-    >
+      className="bg-slate-200 shadow-md fixed top-0 w-full z-10">
+        
       {/* // Header container with background and shadow */}
       <div className="flex justify-between items-center max-w-6xl mx-auto p-3">
         <Link to="/">
@@ -83,7 +83,7 @@ export default function Header() {
           {/* Search bar input */}
           <input
             type="text"
-            placeholder="serch...."
+            placeholder="search...."
             className="bg-transparent focus:outline-none w-24 sm:w-64"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
@@ -106,6 +106,12 @@ export default function Header() {
             <li className="hidden sm:inline text-slate-700 hover:underline">
               About
             </li>
+          </Link>
+
+          <Link to={"/contact-us"}>
+          <li className="hidden sm:inline text-slate-700 hover:underline">
+            Contact-us
+          </li>
           </Link>
 
           <Link to="/profile">

@@ -40,7 +40,6 @@ export default function () {
 
   
   return (
-
     <button  // Button to trigger Google login
       onClick={handleGoogleClick}
       type="button"

@@ -54,17 +54,18 @@ export default function Search() {
       const searchQuery = urlParams.toString();
       const res = await fetch(`/api/listing/get?${searchQuery}`);
       const data = await res.json();
-       if (data.length > 8){//if length is more then 8 then show show more
-        setShowMore(true);
+     if (data.length > 8){//if length is more then 8 then show show more
+      setShowMore(data.length === 9);;;
       } else {
         setShowMore(false);
       }
       setListings(data);
       setLoading(false);
     };
+
     fetchListings();
  },[location.search])
-  
+
 
 
 //step1
@@ -117,7 +118,8 @@ export default function Search() {
     const searchQuery = urlParams.toString();
     const res = await fetch(`/api/listing/get?${searchQuery}`);
     const data = await res.json();
-    if (data.length < 9) { // if data is less then 9 dont show button showmore
+
+    if (data.length >8) { // if data is less then 9 dont show button showmore
       setShowMore(false);
     }
     setListings([...listings, ...data]);// add previous listings to new listing
@@ -231,7 +233,7 @@ export default function Search() {
              {showMore && ( //if show more is then show button
             <button
               onClick={onShowMoreClick}
-              className='text-green-700 hover:underline p-7 text-center w-full '>
+              className='text-black hover:underline p-7 text-center w-full '>
               Show more
             </button>
           )} 

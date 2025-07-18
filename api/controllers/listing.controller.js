@@ -79,7 +79,7 @@ export const getListings = async (req, res, next) =>{
       offer = { $in: [false, true] }; // fetch both listing 
     }
 
-    let furnished = req.query.offer;
+    let furnished = req.query.furnished;
     if (furnished === undefined || furnished === 'false') {// same
       furnished = { $in: [false, true] };
     }
