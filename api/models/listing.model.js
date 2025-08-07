@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 
-const listingSchema = new mongoose.Schema(
+const listingSchema = new mongoose.Schema( //Making Listingschema
   {
     name: {
       type: String,
@@ -71,6 +71,6 @@ const listingSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-const Listing = mongoose.model('Listing', listingSchema);
+const Listing = mongoose.model('Listing', listingSchema);  //making Listingmodel
 
 export default Listing;

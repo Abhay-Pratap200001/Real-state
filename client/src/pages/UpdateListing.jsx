@@ -34,16 +34,15 @@ export default function CreateListing() { // creeate listing component
   useEffect(() => {
     const fetchListing = async () => {
       const listingId = params.listingId;
-      const res = await fetch(`/api/listing/get/${listingId}`); // sending req to api to get single user listing single id lsiting
+      const res = await fetch(`/api/listing/get/${listingId}`); // sending req to api to get single user listing  according to lsiting id
       const data = await res.json();
       if (data.success === false) {
-        console.log(data.message);
         return;
       }
       setFormData(data);
     };
     fetchListing();
-  }, []);
+  },[]);
   
 
 
@@ -80,19 +79,18 @@ export default function CreateListing() { // creeate listing component
   };
 
   const storeImage = async (file) => { // stroing image to cloudinary
-  return new Promise((resolve, reject) => { // to selove success and failed response
-    const xhr = new XMLHttpRequest();// crating new XMLHttpReques object to manually send http request
-    const formData = new FormData();// Creates a formData object required to send files like img etc
-    formData.append('file', file);//attach actual file with from data
-    formData.append('upload_preset', CLOUDINARY_PRESET); // senfing preset configuration with image upload request
-    xhr.open('POST', CLOUDINARY_URL);//opening the cloudinary api using post
 
-    // xhr.upload.addEventListener('progress', (event) => {
-    //   if (event.lengthComputable) {
-    //     const percent = (event.loaded / event.total) * 100;
-    //     console.log(`Upload is ${Math.round(percent)}% done`);
-    //   }
-    // });
+  return new Promise((resolve, reject) => { // to selove success and failed response
+
+    const xhr = new XMLHttpRequest();// crating new XMLHttpReques object to manually send http request
+
+    const formData = new FormData();// Creates a formData object required to send files like img etc
+
+    formData.append('file', file);//attach actual file with from data
+
+    formData.append('upload_preset', CLOUDINARY_PRESET);// A Cloudinary configuration (which tells Cloudinary which account or folder to use)
+
+    xhr.open('POST', CLOUDINARY_URL);// Prepares a POST request to the Cloudinary API endpoint.
 
     xhr.onload = () => { // run when imgupload request resolve or rejecr
       if (xhr.status === 200) {
@@ -133,7 +131,7 @@ export default function CreateListing() { // creeate listing component
     }
 
         if (e.target.type === 'number' || e.target.type === 'text' || e.target.type === 'textarea'){// run when these conditions get true
-      setFormData({
+        setFormData({
         ...formData,
         [e.target.id]: e.target.value,
       });
@@ -157,8 +155,8 @@ export default function CreateListing() { // creeate listing component
           'Content-Type': 'application/json',
         },
           body: JSON.stringify({
-            ...formData,
-            userRef:currentUser._id // tell which user is posting data
+          ...formData,
+          userRef:currentUser._id // tell which user is posting data
           }), //sending form data to backend  
         });
         const data = await res.json(); // accepting response which come from backend

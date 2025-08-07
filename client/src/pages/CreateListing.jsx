@@ -5,12 +5,13 @@ import { useNavigate } from 'react-router-dom';
 const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/upload`;
 const CLOUDINARY_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
 
-export default function CreateListing() { // creeate listing component
+export default function CreateListing(){ // creeate listing component
   const { currentUser } = useSelector((state) => state.user); // check current user
-    const navigate = useNavigate();
+  const navigate = useNavigate();
+
   const [files, setFiles] = useState([]);// for storing file which is choose by user to upload
-  const [formData, setFormData] = useState({imageUrls: [],
-     name: '',
+  const [formData, setFormData] = useState({imageUrls:[],
+    name: '',
     description: '',
     address: '',
     type: 'ren ',
@@ -22,13 +23,14 @@ export default function CreateListing() { // creeate listing component
     parking: false,
     furnished: false,
   }); // storing image url and other form data
-  console.log(formData);
-  
    
   const [imageUploadError, setImageUploadError] = useState(false);// to show erro while upload error
   const [uploading, setUploading] = useState(false);// showing upload status
   const [error, setError] = useState(false); // to show error while uploading failed
   const [loading, setLoading] = useState(false);// show loading effect
+
+
+  //image handle function
 
   const handleImageSubmit = (e) => {// uploading image function
     if (files.length > 0 && files.length + formData.imageUrls.length < 7) { 
@@ -40,16 +42,20 @@ export default function CreateListing() { // creeate listing component
         promises.push(storeImage(files[i])); // calling storeImage function to store file in cloudinary
       }
 
+
+
       Promise.all(promises)// to wait until all image uploads are completed, and then update the state with the image URLs.
         .then((urls) => {
           setFormData({
             ...formData,
-            imageUrls: formData.imageUrls.concat(urls),//after promise completed  then update the state with the image URLs.
+            imageUrls: formData.imageUrls.concat(urls),//after promise completed then update the state with the image URLs.
           });
+
 
           setImageUploadError(false);//if image uploaded successfully do error false
           setUploading(false);// then turn off uploading status
         })
+
 
         .catch((err) => {
           setImageUploadError('Image upload failed (2 mb max per image)');// if image upload failed show to user
@@ -62,27 +68,37 @@ export default function CreateListing() { // creeate listing component
     }
   };
 
-  const storeImage = async (file) => { // stroing image to cloudinary
-  return new Promise((resolve, reject) => { // to selove success and failed response
-    const xhr = new XMLHttpRequest();// crating new XMLHttpReques object to manually send http request
-    const formData = new FormData();// Creates a formData object required to send files like img etc
-    formData.append('file', file);//attach actual file with from data
-    formData.append('upload_preset', CLOUDINARY_PRESET); // senfing preset configuration with image upload request
-    xhr.open('POST', CLOUDINARY_URL);//opening the cloudinary api using post
 
-    xhr.onload = () => { // run when imgupload request resolve or rejecr
-      if (xhr.status === 200) {
-        const response = JSON.parse(xhr.responseText); // convert server response from string to j.s object
-        resolve(response.secure_url); // Cloudinary returns secure_url
-      } else {
-        reject(new Error('Cloudinary upload failed'));
-      }
-    };
+  const storeImage = async (file) => { // stroing image to cloudinary
+
+  return new Promise((resolve, reject) => { // to selove success and failed response
+
+  const xhr = new XMLHttpRequest();// crating new XMLHttpReques object to manually send http request
+
+  const formData = new FormData();// Creates a formData object required to send files like img etc
+
+  formData.append('file', file);//attach actual file with from data chosed by user
+
+  formData.append('upload_preset', CLOUDINARY_PRESET); // A Cloudinary configuration (which tells Cloudinary which account or folder to use).
+
+  xhr.open('POST', CLOUDINARY_URL);// Prepares a POST request to the Cloudinary API endpoint.
+
+
+  xhr.onload = () => { // run when imgupload request resolve or rejecr
+    if (xhr.status === 200) {
+      const response = JSON.parse(xhr.responseText); // convert server response from string to j.s object
+      resolve(response.secure_url); // Cloudinary returns secure_url
+    } else {
+      reject(new Error('Cloudinary upload failed'));
+  }
+};
 
     xhr.onerror = () => reject(new Error('XHR error during upload'));// for some issues its reject the promise
     xhr.send(formData);// final step and send the requestto cloudinary with img preset
   });
 };
+
+///  Image uploading section finshed
 
 
   const handleRemoveImage = (index) => {
@@ -92,6 +108,7 @@ export default function CreateListing() { // creeate listing component
     });
   };
 
+
   const handleChange = (e) =>{ // form data function
      if (e.target.id === 'sale' || e.target.id === 'rent') { // run when any only check box checked
       setFormData({ 
@@ -100,13 +117,14 @@ export default function CreateListing() { // creeate listing component
       });
     }
 
-    if (
-      e.target.id === 'parking' ||  e.target.id === 'furnished' || e.target.id === 'offer'){// run when these conditions get true
+
+    if (e.target.id === 'parking' ||  e.target.id === 'furnished' || e.target.id === 'offer'){// run when these conditions get true
       setFormData({
         ...formData, 
         [e.target.id]: e.target.checked,
       });
     }
+
 
         if (e.target.type === 'number' || e.target.type === 'text' || e.target.type === 'textarea'){// run when these conditions get true
       setFormData({
@@ -115,9 +133,12 @@ export default function CreateListing() { // creeate listing component
       });
     }
   };
+
   
+
   
   const handleSubmit = async(e) => {
+
     e.preventDefault();
     try {
       if (formData.imageUrls.length < 1)
@@ -125,9 +146,9 @@ export default function CreateListing() { // creeate listing component
     
        if (+formData.regularPrice < +formData.discountPrice)
         return setError('Discount price must be lower than regular price');
+        setLoading(true);
+        setError(false);
 
-      setLoading(true);
-      setError(false);
       const res = await fetch('/api/listing/create', { // sending request to backend 
         method: 'POST', 
         headers: {
@@ -138,7 +159,9 @@ export default function CreateListing() { // creeate listing component
             userRef:currentUser._id // tell which user is posting data
           }), //sending form data to backend  
         });
-        const data = await res.json(); // accepting response which come from backend
+
+
+      const data = await res.json(); // accepting response which come from backend
       setLoading(false);
       if (data.success === false) { 
         setError(data.message);
@@ -149,6 +172,7 @@ export default function CreateListing() { // creeate listing component
       setLoading(false)
     }
   }
+
 
   return (
     <main className="p-3 max-w-4xl mx-auto">
@@ -297,6 +321,7 @@ export default function CreateListing() { // creeate listing component
           </div>
         </div>
 
+
         <div className="flex flex-col flex-1 gap-4">
           <p className="font-semibold">
             Images:
@@ -304,6 +329,7 @@ export default function CreateListing() { // creeate listing component
               The first image will be the cover (max 6)
             </span>
           </p>
+
           <div className="flex gap-4">
             <input onChange={(e) => setFiles(e.target.files)}
               className="p-3 border border-gray-300 rounded w-full"
@@ -321,11 +347,12 @@ export default function CreateListing() { // creeate listing component
               {uploading ? 'Uploading...' : 'Upload'}
             </button>
             </div>
-        
             <p className='text-red-700 text-sm'>
             {imageUploadError && imageUploadError}
           </p>
 
+          
+          {/* image lsiting triger after uploading the image */}
           {formData.imageUrls.length > 0 &&  // image length has to be greater then 0
             formData.imageUrls.map((url, index) => ( // if img upload map all img 
               <div
@@ -348,9 +375,9 @@ export default function CreateListing() { // creeate listing component
             ))}
 
           <button disabled={loading || uploading} className='p-3 bg-slate-700 text-white rounded-lg uppercase hover:opacity-95 disabled:opacity-80'>
-                  {loading ? 'Creating...' : 'Create listing'} 
-            </button>
-                   {error && <p className='text-red-700 text-sm'>{error}</p>}
+            {loading ? 'Creating...' : 'Create listing'} 
+          </button>
+           {error && <p className='text-red-700 text-sm'>{error}</p>}
         </div>
       </form>
     </main>

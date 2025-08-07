@@ -12,7 +12,7 @@ export default function SignUp() {
 
   const handleChange = (e) => {
     //function for inputs fields
-    setFormData({
+ setFormData({
       ...formData,
       [e.target.id]: e.target.value,
     });
@@ -31,22 +31,19 @@ export default function SignUp() {
         },
         body: JSON.stringify(formData),
       });
-
-
+      
       const data = await res.json();
-      console.log(data);
+      
       if (data.success === false) {
         setLoading(false);
-        setError(data.message);//if error occur its send from backend
+        setError(data.message);//if error occur 
         return;
       }
-
 
       setLoading(false);
       setError(null); /// if no error then do error null
       navigate('/sign-in')
-
-    } 
+   } 
     
     catch (error) {
       setLoading(false);

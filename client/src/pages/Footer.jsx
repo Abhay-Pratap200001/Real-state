@@ -3,7 +3,7 @@ import { FaFacebookF, FaInstagram, FaTwitter, FaLinkedin } from 'react-icons/fa'
 
 export default function Footer() {
   return (
-    <div className='mb-10  mt-15 border-t-2  border-gray-500'>
+    <div className='mb-10  mt-25 border-t-2  border-gray-200'>
     <footer className=" text-black  ">
       <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-4 gap-8 pt-15">
         
@@ -30,7 +30,7 @@ export default function Footer() {
         <div>
           <h3 className="text-xl font-semibold mb-3">Contact</h3>
           <p className="text-sm text-black">Email: support@nestora.com</p>
-          <p className="text-sm text-black">Phone: +91 98765 43210</p>
+          <p className="text-sm text-black">Phone: +91 9935880302</p>
           <p className="text-sm text-black">Address: 123 Estate Lane, Delhi, India</p>
         </div>
 
@@ -38,10 +38,10 @@ export default function Footer() {
         <div>
           <h3 className="text-xl font-semibold mb-3">Follow Us</h3>
           <div className="flex space-x-4 text-lg">
-            <a href="#" className="hover:text-white"><FaFacebookF /></a>
-            <a href="#" className="hover:text-white"><FaInstagram /></a>
-            <a href="#" className="hover:text-white"><FaTwitter /></a>
-            <a href="#" className="hover:text-white"><FaLinkedin /></a>
+            <a className="hover:text-white"><FaFacebookF /></a>
+            <a className="hover:text-white"><FaInstagram /></a>
+            <a className="hover:text-white"><FaTwitter /></a>
+            <a className="hover:text-white"><FaLinkedin /></a>
           </div>
         </div>
       </div>

@@ -1,7 +1,7 @@
 import React,{ useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 
-export default function Contact({listing}) {
+export default function Contact({listing}) { //Accepting listing as a prop
     const [landlord, setLandlord] = useState(null);// for string data we fetch
     const [message, setMessage] = useState('');
     const onChange = (e) => {
@@ -33,7 +33,6 @@ export default function Contact({listing}) {
             for{' '}
             <span className='font-semibold'>{listing.name.toLowerCase()}</span>
           </p>
-
            <textarea
             name='message'
             id='message'

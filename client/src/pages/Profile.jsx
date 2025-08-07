@@ -28,6 +28,7 @@ export default function Profile() {
     setFormData({...formData, [e.target.id]: e.target.value});// copying oldform data and update only new inputs 
   }
   
+  
  const handleSubmit = async (e) => { //form submit update user funtion 
     e.preventDefault();//stop to reload the page and submit from directly
     try {
@@ -97,6 +98,7 @@ const handleSignOut = async () => {  //signout Functiom
         toast.error(data.message || "Sign out failed");
         return;
       }
+
       dispatch(deleteUserSuccess(data));  //if passed, dispatch success with data
       toast.success("Signed out successfully 👋🏻", {
          style: {
@@ -104,6 +106,7 @@ const handleSignOut = async () => {  //signout Functiom
           color: '#fff',           // white text
         },
       });
+
 
     } catch (error) {
       dispatch(deleteUserFailure(data.message)); // if some error then show
@@ -127,6 +130,7 @@ const handleSignOut = async () => {  //signout Functiom
         setShowListingsError(true);
     }
   }
+
 
 
 const handleListingDelete = async (listingId) => { // delete user function
@@ -198,8 +202,7 @@ const handleListingDelete = async (listingId) => { // delete user function
 
           <Link
           className='bg-green-700 text-white p-3 rounded-lg uppercase text-center hover:opacity-95'
-          to={'/create-listing'}
-        >
+          to={'/create-listing'}>
           Create Listing
         </Link>
       </form>
@@ -208,6 +211,7 @@ const handleListingDelete = async (listingId) => { // delete user function
         <span onClick={handleDeleteUser} className="text-red-700 cursor-pointer">Delete account</span>
         <span onClick={handleSignOut} className="text-red-700 cursor-pointer">Sign out</span>
       </div>
+
 
       {/* Definig error */}
       <p className='text-center text-green-700 mt-5'>

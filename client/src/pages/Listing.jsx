@@ -24,8 +24,8 @@ export default function Listing() {
   const {currentUser} = useSelector((state) => state.user);
   const [contact, setContact] = useState(false); 
   
-
   const params = useParams();
+
   useEffect(() => {
     const fetchListing = async () => { // function of fetching list details 
       try {
@@ -65,7 +65,6 @@ export default function Listing() {
           <Swiper navigation>
             {listing.imageUrls.map((url) => ( // map all the images which is under the url
               <SwiperSlide key={url}>
-
                 <div
                   className='h-[500px] '
                     style={{
@@ -102,6 +101,7 @@ export default function Listing() {
                 ? listing.discountPrice.toLocaleString('en-US')// showing discount price
                 : listing.regularPrice.toLocaleString('en-US')// showing regualr price
                 } 
+
               {listing.type === 'rent' && ' / month'}    {/* show  if property is rented show mnth pernt or "" */}
             </p>
 
@@ -112,7 +112,7 @@ export default function Listing() {
 
             <div className='flex gap-4'>
               <p className='bg-red-900 w-full max-w-[200px] text-white text-center p-1 rounded-md'>
-                {listing.type === 'rent' ? 'For Rent' : 'For Sale'}   {listing.type === 'rent' && ' / month'}  {/*if rent show rent or show for*/}
+                {listing.type === 'rent' ? 'For Rent' : 'For Sale'}   {listing.type === 'rent' && ' / month'}  {/*if rent show rent or show for sale*/}
              </p>
 
               {listing.offer && (

@@ -9,7 +9,7 @@ export const test = (req, res) =>{
     })
 }
 
-
+//User profile section after singing user can see this section
 export const updateUser = async (req, res, next) => {  //user updated function
   if (req.user.id !== req.params.id) //checking loggedin user and the user req is same if it only that poin we give access to update 
 
@@ -42,6 +42,7 @@ export const updateUser = async (req, res, next) => {  //user updated function
 };
 
 
+
 export const deleteUser = async (req, res, next) => { // deleting user function
   if (req.user.id !== req.params.id)// comparing exesting user to user which come from client 
     return next(errorHandler(401, 'You can only delete your own account!'));//show erro 
@@ -53,6 +54,8 @@ export const deleteUser = async (req, res, next) => { // deleting user function
     next(error);// error the pass to next
   }
 };
+
+
 
 
 export const getUserListings = async (req, res, next) => { //getting user listing function

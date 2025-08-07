@@ -8,9 +8,9 @@ import cookieParser from "cookie-parser";
 import path from 'path';
 dotenv.config();
 
-
 const __dirname = path.resolve();
 const app = express();
+
 app.use(express.json());
 app.use(cookieParser());
 
@@ -18,11 +18,14 @@ app.use('/api/user', userRouter);//update/delete
 app.use('/api/auth' , authRouter)//signup/api/singin/api
 app.use('/api/listing',listingRouter)
 
+
+//for hosting 
 app.use(express.static(path.join(__dirname, 'client/dist')))
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'client', 'dist', 'index.html'))
 })
+
 
 
 //connecting server to database

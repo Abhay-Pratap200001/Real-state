@@ -114,7 +114,7 @@ export const getListings = async (req, res, next) =>{
       .limit(limit)// how many items need in page
       .skip(startIndex);// from where to start index
      return res.status(200).json(listings);// send res to client
-  } catch (error) {
-    next(error)
+   } catch (error) {
+     next(error)
   }
 }

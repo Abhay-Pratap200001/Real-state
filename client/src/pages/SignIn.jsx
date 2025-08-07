@@ -7,22 +7,18 @@ import toast, { Toaster } from 'react-hot-toast';
 
 
 export default function SignIn() {
-  const [formData, setFormData] = useState({}); //state for store form input field data
-  const { loading, error } = useSelector((state) => state.user);// impoeting from usersilce.js
-  const dispatch = useDispatch();
+  const [formData, setFormData] = useState({});  //state for store form input field data
+  const { loading, error } = useSelector((state) => state.user); //from usersilce.js 
+  const dispatch = useDispatch();//used to trigger redux action
   const navigate = useNavigate();
 
   const handleChange = (e) => { //function for inputs fields
-    setFormData({
-      ...formData,
-      [e.target.id]: e.target.value,
-    });
+    setFormData({...formData, [e.target.id]:e.target.value,});
   };
 
   const handleSubmit = async (e) => {  //function for submmit form
-    e.preventDefault();
+      e.preventDefault();
       toast.loading("Signing in...");
-
 
     try {
       dispatch(SignInStart());
@@ -31,11 +27,10 @@ export default function SignIn() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify(formData), //sending formdata
       });
-
-      const data = await res.json();
-      console.log(data);
+      const data = await res.json();//accepting the response from backend
+      
       if (data.success === false) {
         dispatch(SignInFaliure(data.message)); //if error occur its send from backend
         toast.dismiss(); 
@@ -49,6 +44,7 @@ export default function SignIn() {
      setTimeout(() => {
       navigate("/");
     }, 1500);
+    
     } catch (error) {
       dispatch(SignInFaliure(error.message));
        toast.dismiss();
@@ -60,6 +56,7 @@ export default function SignIn() {
     <div className="p-3 max-w-lg mx-auto">
       <Toaster position="top-center" reverseOrder={false} />
       <h1 className="text-3xl text-center font-semibold mt-60 mb-10">Sign In</h1>
+      
       <form onSubmit={handleSubmit} className="flex flex-col gap-4">
         <input
           type="email"
