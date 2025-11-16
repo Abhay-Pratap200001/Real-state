@@ -4,6 +4,9 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 const CLOUDINARY_URL = `https://api.cloudinary.com/v1_1/${import.meta.env.VITE_CLOUDINARY_CLOUD_NAME}/upload`;
 const CLOUDINARY_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET;
+// console.log(import.meta.env.VITE_CLOUDINARY_CLOUD_NAME);
+// console.log(import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET);
+
 
 export default function CreateListing(){ // creeate listing component
   const { currentUser } = useSelector((state) => state.user); // check current user

@@ -19,7 +19,6 @@ app.use('/api/auth' , authRouter)//signup/api/singin/api
 app.use('/api/listing',listingRouter)
 
 
-//for hosting 
 app.use(express.static(path.join(__dirname, 'client/dist')))
 
 app.get('*', (req, res) => {
